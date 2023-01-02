@@ -17,7 +17,7 @@ export default function DropdownComponent() {
           {status === "loading" ? (
             "Loading..."
           ) : session?.user ? (
-            session.user.name
+            <h4 className="w-32">{session.user.name}</h4>
           ) : (
             <h4>Menu</h4>
           )}
