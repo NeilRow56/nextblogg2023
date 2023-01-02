@@ -1,17 +1,26 @@
 "use client";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { signIn, useSession } from "next-auth/react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function DropdownComponent() {
+  const { status, data: session } = useSession();
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-          Menu
+          {status === "loading" ? (
+            "Loading..."
+          ) : session?.user ? (
+            session.user.name
+          ) : (
+            <h4>Menu</h4>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="ml-2 -mr-1 h-5 w-5"
@@ -43,13 +52,13 @@ export default function DropdownComponent() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  href="/auth/login"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Account settings
+                  Login
                 </a>
               )}
             </Menu.Item>

@@ -20,6 +20,14 @@ const Header = () => {
           <li>
             <Link
               className="text-sm font-medium uppercase text-stone-500 hover:text-red-900"
+              href="/admin"
+            >
+              Admin
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="text-sm font-medium uppercase text-stone-500 hover:text-red-900"
               href="/users"
             >
               Users

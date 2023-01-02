@@ -1,16 +1,38 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
+import { getError } from "../../../utils/error";
 
 export default function LoginScreen() {
+  const { data: session } = useSession();
+
+  if (session) {
+    redirect("/admin");
+  }
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
-  const submitHandler = ({ email, password }) => {
-    console.log(email, password);
+
+  const submitHandler = async ({ email, password }) => {
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+      if (result.error) {
+        toast.error(result.error);
+      }
+    } catch (err) {
+      toast.error(getError(err));
+    }
   };
   return (
     <form
