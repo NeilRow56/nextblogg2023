@@ -1,7 +1,7 @@
 "use client";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -92,6 +92,7 @@ export default function DropdownComponent() {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={() => signOut()}
                     type="submit"
                     className={classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
