@@ -1,9 +1,9 @@
 import User from "../models/User";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 
 //GET all users = http://localhost:3000/api/users
 
-const allUsers = async (req, res) => {
+const getUsers = async (req, res) => {
   const usersCount = await User.countDocuments();
 
   try {
@@ -28,39 +28,39 @@ const allUsers = async (req, res) => {
 };
 
 // // Create new User = http://localhost:3000/api/user
-const newUser = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+// const newUser = async (req, res) => {
+//   try {
+//     const { name, email, password } = req.body;
 
-    // Confirm data
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+//     // Confirm data
+//     if (!name || !email || !password) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
 
-    // Check for duplicate email
-    const duplicate = await User.findOne({ email }).lean().exec();
+//     // Check for duplicate email
+//     const duplicate = await User.findOne({ email }).lean().exec();
 
-    if (duplicate) {
-      return res.status(409).json({ message: "Email address already in use" });
-    }
+//     if (duplicate) {
+//       return res.status(409).json({ message: "Email address already in use" });
+//     }
 
-    // Hash password
-    const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
-    const userObject = { name, email, password: hashedPwd };
-    // Create and store new user
-    const user = await User.create(userObject);
+//     // Hash password
+//     const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
+//     const userObject = { name, email, password: hashedPwd };
+//     // Create and store new user
+//     const user = await User.create(userObject);
 
-    if (user) {
-      //created
-      res.status(201).json({ message: `New user ${name} created` });
-    }
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: "Invalid user data received",
-    });
-  }
-};
+//     if (user) {
+//       //created
+//       res.status(201).json({ message: `New user ${name} created` });
+//     }
+//   } catch (error) {
+//     res.status(400).json({
+//       success: false,
+//       message: "Invalid user data received",
+//     });
+//   }
+// };
 
 // //GET single Employee details => api/Employees/:id
 
@@ -158,8 +158,8 @@ const newUser = async (req, res) => {
 // };
 
 export {
-  allUsers,
-  newUser,
+  getUsers,
+
   //   getSingleEmployee,
   //   updateSingleEmployee,
   //   deleteSingleEmployee,

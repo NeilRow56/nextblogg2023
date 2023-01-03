@@ -2,6 +2,7 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -51,7 +52,7 @@ export default function DropdownComponent() {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="/auth/login"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -59,12 +60,12 @@ export default function DropdownComponent() {
                   )}
                 >
                   Login
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="#"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -72,12 +73,12 @@ export default function DropdownComponent() {
                   )}
                 >
                   Support
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="#"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -85,7 +86,7 @@ export default function DropdownComponent() {
                   )}
                 >
                   License
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <form method="POST" action="#">
